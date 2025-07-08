@@ -79,12 +79,7 @@ Performance: Truncating and reloading tables may not be suitable for large datas
 Error Handling: Both Bronze and Silver procedures include TRY-CATCH blocks for error logging.
 Typo Fix: The table silver.erp_px_cat_g1v in silver_tables.sql should be silver.erp_px_cat_g1v2.
 
-Future Improvements
 
-Implement incremental loading to improve performance.
-Add data validation before BULK INSERT.
-Use configuration tables for file paths to enhance portability.
-Create a pipeline diagram to visualize the ETL flow.
 
 License
 This project is licensed under the MIT License. See the LICENSE file for details.```
