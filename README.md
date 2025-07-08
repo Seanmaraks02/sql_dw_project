@@ -25,7 +25,7 @@ This project implements a three-layer ETL (Extract, Transform, Load) pipeline fo
    cd sql-data-warehouse-pipeline
 
 
-Prepare the Database:
+## Prepare the Database:
 
 Create a SQL Server database (e.g., DataWarehouse).
 Ensure bronze, silver, and gold schemas exist:CREATE SCHEMA bronze;
@@ -34,8 +34,7 @@ CREATE SCHEMA gold;
 
 
 
-
-Prepare CSV Files:
+## Prepare CSV Files:
 
 Place CSV files in a directory accessible to the SQL Server (e.g., C:\datasets\).
 Update file paths in scripts/bronze/bronze_layer.sql to match your environment.
