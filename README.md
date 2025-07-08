@@ -1,85 +1,50 @@
 # SQL Data Warehouse ETL Pipeline
 
-## Overview
-
+# Overview
 This project implements a three-layer ETL (Extract, Transform, Load) pipeline for a data warehouse using SQL Server. The pipeline processes CRM and ERP data through Bronze (raw data), Silver (cleaned and transformed data), and Gold (business-ready views) layers. The project demonstrates data ingestion, cleaning, normalization, and integration for analytics.
 
-### Pipeline Structure
+# Pipeline Structure
+- Bronze Layer: Ingests raw CSV data into SQL tables using `BULK INSERT`.
+- Silver Layer: Cleans and transforms data, normalizing values and handling inconsistencies.
+- Gold Layer: Creates views for business reporting, integrating data from multiple sources.
 
-- **Bronze Layer**: Ingests raw CSV data into SQL tables using `BULK INSERT`.
-- **Silver Layer**: Cleans and transforms data, normalizing values and handling inconsistencies.
-- **Gold Layer**: Creates views for business reporting, integrating data from multiple sources.
+# Prerequisites
+- SQL Server: SQL Server 2016 or later.
+- SQL Server Management Studio (SSMS) or another SQL client.
+- Sample Data: CSV files for CRM and ERP data (e.g., `cust_info.csv`, `prd_info.csv`, etc.).
+- Permissions: Write access to a SQL Server database with `bronze`, `silver`, and `gold` schemas.
 
-## Prerequisites
+# Setup
+Place CSV files in a directory accessible to the SQL Server (e.g., `C:\datasets`). Update file paths in `scripts/bronze/bronze_layer.sql` to match your environment.
 
-- **SQL Server**: SQL Server 2016 or later.
-- **SQL Server Management Studio (SSMS)** or another SQL client.
-- **Sample Data**: CSV files for CRM and ERP data (e.g., `cust_info.csv`, `prd_info.csv`, etc.).
-- **Permissions**: Write access to a SQL Server database with `bronze`, `silver`, and `gold` schemas.
+Create Tables:
+- Execute `scripts/bronze/bronze_tables.sql` to create Bronze layer tables.
+- Execute `scripts/silver/silver_tables.sql` to create Silver layer tables.
 
-## Setup
+Clone the Repository:
+```bash
+git clone https://github.com/your-username/sql-data-warehouse-pipeline.git
+cd sql-data-warehouse-pipeline
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-username/sql-data-warehouse-pipeline.git
-   cd sql-data-warehouse-pipeline
-
-
-## Prepare the Database:
-
-Create a SQL Server database (e.g., DataWarehouse).
-Ensure bronze, silver, and gold schemas exist:CREATE SCHEMA bronze;
+Prepare the Database:
+CREATE SCHEMA bronze;
 CREATE SCHEMA silver;
 CREATE SCHEMA gold;
 
-
-
-## Prepare CSV Files:
-
-Place CSV files in a directory accessible to the SQL Server (e.g., C:\datasets\).
-Update file paths in scripts/bronze/bronze_layer.sql to match your environment.
-
-
-Create Tables:
-
-Execute scripts/bronze/bronze_tables.sql to create Bronze layer tables.
-Execute scripts/silver/silver_tables.sql to create Silver layer tables.
-
-
-
 Usage
-
-Load Bronze Layer:
-
-Run the stored procedure to load raw data from CSVs:EXEC bronze.load_bronze;
-
+Load Bronze Layer:Run the stored procedure to load raw data from CSVs:
+EXEC bronze.load_bronze;
 
 This truncates and populates Bronze tables (crm_cust_info, crm_prd_info, crm_sales_details, erp_cust_az12, erp_loc_a101, erp_px_cat_g1v2).
-
-
-Load Silver Layer:
-
-Run the stored procedure to transform and load data into Silver tables:EXEC silver.load_silver;
-
+Load Silver Layer:Run the stored procedure to transform and load data into Silver tables:
+EXEC silver.load_silver;
 
 This cleans and normalizes data from Bronze tables.
-
-
-Create Gold Layer Views:
-
-Execute scripts/gold/gold_layer.sql to create views (dim_customers, dim_products, fact_sales).
-Optionally, run scripts/gold/gold_layer_extraction.sql to extract views into tables (customers, products, sales).
-
-
-Query Gold Layer:
-
-Query the views for business insights:SELECT * FROM gold.dim_customers;
+Create Gold Layer Views:Execute scripts/gold/gold_layer.sql to create views (dim_customers, dim_products, fact_sales). Optionally, run scripts/gold/gold_layer_extraction.sql to extract views into tables (customers, products, sales).
+Query Gold Layer:Query the views for business insights:
+SELECT * FROM gold.dim_customers;
 SELECT * FROM gold.dim_products;
 SELECT * FROM gold.fact_sales;
-
-
-
-
 
 Project Structure
 sql-data-warehouse-pipeline/
@@ -94,17 +59,17 @@ sql-data-warehouse-pipeline/
 │   │   ├── PX_CAT_G1V2.csv
 ├── scripts/
 │   ├── bronze/
-│   │   ├── bronze_layer.sql   # Stored procedure for Bronze layer loading
-│   │   └── bronze_tables.sql  # Table definitions for Bronze layer
+│   │   ├── bronze_layer.sql # Stored procedure for Bronze layer loading
+│   │   └── bronze_tables.sql # Table definitions for Bronze layer
 │   ├── silver/
-│   │   ├── silver_layer.sql   # Stored procedure for Silver layer transformation
-│   │   └── silver_tables.sql  # Table definitions for Silver layer
+│   │   ├── silver_layer.sql # Stored procedure for Silver layer transformation
+│   │   └── silver_tables.sql # Table definitions for Silver layer
 │   └── gold/
-│       ├── gold_layer.sql     # View definitions for Gold layer
-│       └── gold_layer_extraction.sql  # Scripts to extract Gold views to tables
-├── README.md                  # Project documentation
-├── .gitignore                 # Git ignore file
-└── LICENSE                    # License file (e.g., MIT)
+│       ├── gold_layer.sql # View definitions for Gold layer
+│       └── gold_layer_extraction.sql # Scripts to extract Gold views to tables
+├── README.md # Project documentation
+├── .gitignore # Git ignore file
+└── LICENSE # License file (e.g., MIT)
 
 Notes
 
