@@ -70,16 +70,16 @@ sql-data-warehouse-pipeline/
 ├── README.md # Project documentation
 ├── .gitignore # Git ignore file
 └── LICENSE # License file (e.g., MIT)
+```
+# Notes
 
-Notes
+- File Paths: Update hardcoded file paths in scripts/bronze/bronze_layer.sql to match your environment.
+- Data Quality: The pipeline assumes well-formed CSV files. Validate data before loading.
+- Performance: Truncating and reloading tables may not be suitable for large datasets. Consider incremental loading for production.
+- Error Handling: Both Bronze and Silver procedures include TRY-CATCH blocks for error logging.
 
-File Paths: Update hardcoded file paths in scripts/bronze/bronze_layer.sql to match your environment.
-Data Quality: The pipeline assumes well-formed CSV files. Validate data before loading.
-Performance: Truncating and reloading tables may not be suitable for large datasets. Consider incremental loading for production.
-Error Handling: Both Bronze and Silver procedures include TRY-CATCH blocks for error logging.
-Typo Fix: The table silver.erp_px_cat_g1v in silver_tables.sql should be silver.erp_px_cat_g1v2.
 
 
 
 License
-This project is licensed under the MIT License. See the LICENSE file for details.```
+This project is licensed under the MIT License. See the LICENSE file for details.
